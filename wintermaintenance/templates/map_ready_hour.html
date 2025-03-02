@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slippery Heatmap by Hour</title>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <style>
+        #map {
+            width: 100%;
+            height: 80vh;
+            margin-top: 20px;
+        }
+        #controls {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="controls">
+        <input type="range" id="hour-slider" min="0" max="23" step="1" value="{{ selected_hour|default:'0' }}" onchange="updateHour()">
+        <span id="hour-label">{{ selected_hour|default:'00' }}:00</span>
+    </div>
+
+    <div id="map">{{ mapready_html|safe }}</div>
+
+    <script>
+        function updateHour() {
+            var selectedHour = document.getElementById("hour-slider").value;
+            document.getElementById("hour-label").innerText = selectedHour + ":00";
+            window.location.href = "?hour=" + selectedHour;
+        }
+    </script>
+
+</body>
+</html>
